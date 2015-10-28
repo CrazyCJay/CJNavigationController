@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 ##CJNavigationController是什么?
 是一个仿天猫等一些APP，滑动全屏返回的插件。
@@ -13,3 +14,8 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 ```
     
+=======
+# CJNavigationController
+仿照天猫滑动全屏返回
+https://github.com/CrazyCJay/CJNavigationController/blob/master/show.gif
+>>>>>>> origin/master
