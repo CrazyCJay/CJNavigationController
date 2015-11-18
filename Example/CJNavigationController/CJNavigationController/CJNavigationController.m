@@ -83,7 +83,6 @@
 {
     if (self.viewControllers.count > 0) {
         [self.mScreenShots addObject:[self capture]];
-        NSLog(@"%@",self.mScreenShots);
         //        [self pushAnimation:viewController];
         //        return;
     }
@@ -123,8 +122,14 @@
 
 - (UIImage *)capture
 {
-    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.opaque, 0.0);
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    if (self.view.superview.superview.superview) {
+        UIGraphicsBeginImageContextWithOptions(self.view.superview.superview.superview.bounds.size, self.view.superview.superview.superview.opaque, 0.0);
+        [self.view.superview.superview.superview.layer renderInContext:UIGraphicsGetCurrentContext()];
+    }else{
+        UIGraphicsBeginImageContextWithOptions(self.view.superview.bounds.size, self.view.superview.opaque, 0.0);
+        [self.view.superview.layer renderInContext:UIGraphicsGetCurrentContext()];
+    }
+    
     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;
