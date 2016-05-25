@@ -18,3 +18,4 @@ UITabBarControl配合使用uitabbar无法显示
 
 ##联系方式
 有问题，或者有更好的建议，或者技术交流，请发邮件到CrazyCJay@163.com，谢谢
+感谢大家给我提宝贵的问题以及意见
