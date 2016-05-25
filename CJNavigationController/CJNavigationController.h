@@ -10,6 +10,8 @@
 
 @interface CJNavigationController : UINavigationController
 //是否可以滑动返回
+@property (nonatomic,strong) UIScreenEdgePanGestureRecognizer *cj_panGestureRecognizer;
 @property (nonatomic,assign) BOOL cj_canDragBack;
+//vc 可以重写 preferredStatusBarStyle改变状态栏颜色
 
 @end

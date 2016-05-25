@@ -46,10 +46,16 @@
     self.view.layer.shadowOffset = CGSizeMake(0, 10);
     self.view.layer.shadowOpacity = 0.8;
     self.view.layer.shadowRadius = 10;
+
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(didHandlePanGesture:)];
-    [recognizer delaysTouchesBegan];
-    [self.view addGestureRecognizer:recognizer];
+//    self.cj_panGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc]initWithTarget:self action:@selector(didHandlePanGesture:)];
+//    [self.cj_panGestureRecognizer delaysTouchesBegan];
+//    [self.view addGestureRecognizer:self.cj_panGestureRecognizer];
+    UIScreenEdgePanGestureRecognizer *leftGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc]
+                                                               initWithTarget:self
+                                                               action:@selector(didHandlePanGesture:)];
+    leftGestureRecognizer.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:leftGestureRecognizer];
 }
 
 
@@ -64,6 +70,15 @@
     if (!self.mBgView) {
         self.mBgView = [[UIView alloc]initWithFrame:self.view.bounds];
         self.mBgView.backgroundColor = [UIColor blackColor];
+    }
+    BOOL flag = false;
+    for (UIView *view in self.view.superview.subviews) {
+        if (view == self.mBgView) {
+            flag = true;
+        }
+    }
+    if (!flag) {
+        
         [self.view.superview insertSubview:self.mBgView belowSubview:self.view];
     }
     self.mBgView.hidden = NO;
@@ -83,9 +98,7 @@
 {
     if (self.viewControllers.count > 0) {
         [self.mScreenShots addObject:[self capture]];
-        NSLog(@"%@",self.mScreenShots);
-        //        [self pushAnimation:viewController];
-        //        return;
+        viewController.hidesBottomBarWhenPushed = YES;
     }
     [super pushViewController:viewController animated:animated];
     
@@ -138,6 +151,7 @@
 #pragma mark ------------  UIPanGestureRecognizer -------
 
 -(void)didHandlePanGesture:(UIPanGestureRecognizer *)recoginzer{
+//    NSLog(@"navigation pan");
     if (self.viewControllers.count <= 1 && !self.cj_canDragBack) return;
     CGPoint touchPoint = [recoginzer locationInView:[[UIApplication sharedApplication]keyWindow]];
     

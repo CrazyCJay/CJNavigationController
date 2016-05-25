@@ -7,6 +7,7 @@
 //
 
 #import "CJThirdVC.h"
+#import "CJNavigationController.h"
 
 @interface CJThirdVC ()
 
@@ -16,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    ((CJNavigationController*)self.navigationController).cj_panGestureRecognizer.enabled =NO;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = item;
@@ -23,6 +25,12 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.title = @"第三个页面";
+    UIPanGestureRecognizer *panGest = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(didHandlePanGesture:)];
+
+    [panGest delaysTouchesBegan];
+//    [self.tableView addGestureRecognizer:panGest];
+    
+//    self.tableView.editing = YES;
     // Do any additional setup after loading the view from its nib.
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -32,9 +40,32 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)didHandlePanGesture:(UIPanGestureRecognizer *)recoginzer{
+    NSLog(@"table pan");
+
+}
 
 #pragma mark - Table view data source
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath      //当在Cell上滑动时会调用此函数
+
+{
+    
+            return  UITableViewCellEditingStyleDelete;   //返回此值时,Cell上不会出现Delete按键,即Cell不做任何响应
+    
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+    }
+    
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
     return 1;

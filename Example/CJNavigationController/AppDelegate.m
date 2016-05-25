@@ -24,6 +24,7 @@
     
     CJFirstVC *vc = [[CJFirstVC alloc]init];
     CJNavigationController *navigationVC = [[CJNavigationController alloc]initWithRootViewController:vc];
+//    UINavigationController *navigationVC = [[UINavigationController alloc]initWithRootViewController:vc];
     self.window.rootViewController = navigationVC;
     [self.window makeKeyAndVisible];
     return YES;
